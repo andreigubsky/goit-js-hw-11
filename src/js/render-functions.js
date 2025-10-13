@@ -90,6 +90,10 @@ const images = [
   },
 ];
 const gallery = document.querySelector('ul.gallery');
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 /* #region  createGallery(images) */
 
