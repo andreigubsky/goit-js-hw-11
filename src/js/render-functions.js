@@ -133,3 +133,9 @@ function clearGallery() {
 }
 function showLoader() {}
 function hideLoader() {}
+
+
+export function makeRender(username) {
+	return `Welcome, ${username}!`;
+}
+export const render = ["easy", "medium", "hard"];
