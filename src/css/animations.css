@@ -1,7 +1,6 @@
 .loader {
   position: relative;
   background-color: rgba(255, 255, 255, 0.8);
-
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -9,14 +8,14 @@
 
 .spinner {
   position: absolute;
-  border: 16px solid lightgoldenrodyellow;
+  border: 16px solid lightgrey;
   border-top: 16px solid grey;
   border-radius: 50%;
   width: 30px;
   height: 30px;
   top: 50%;
   left: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {

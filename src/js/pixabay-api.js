@@ -2,6 +2,7 @@
 // Ця функція повинна приймати один параметр query (пошукове слово, яке є рядком),
 // здійснювати HTTP-запит
 // і повертати значення властивості data з отриманої відповіді.
+
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 proxyUrl = 'https://corsproxy.io/?';
 
