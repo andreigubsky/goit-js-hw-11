@@ -24,107 +24,40 @@ import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const images = [
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg',
-    description: 'Hokkaido Flower',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677_1280.jpg',
-    description: 'Container Haulage Freight',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785_1280.jpg',
-    description: 'Aerial Beach View',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619_1280.jpg',
-    description: 'Flower Blooms',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg',
-    description: 'Alpine Mountains',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571_1280.jpg',
-    description: 'Mountain Lake Sailing',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272_1280.jpg',
-    description: 'Alpine Spring Meadows',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255_1280.jpg',
-    description: 'Nature Landscape',
-  },
-  {
-    preview:
-      'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843__340.jpg',
-    original:
-      'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg',
-    description: 'Lighthouse Coast Sea',
-  },
-];
-const gallery = document.querySelector('ul.gallery');
-const lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+import '../css/animations.css';
 
+const gallery = document.querySelector('ul.gallery');
+const spiner = document.querySelector('.spinner');
 /* #region  createGallery(images) */
 
-function createGallery(images) {
-  
-  // Розмітка елементів галереї
-  const markup = images
+export function createGallery(data) {
+  // console.log(data)
+  const markup = data
     .map(
-      image => `<li>
-                  <a class="gallery-link" href="${image.original}">
-                    <img 
-                        class="gallery-image" 
-                        src="${image.preview}" 
-                        alt="${image.description}"
-                    />
-                  </a>
-                </li>`
-    )
+      el => {
+        return `<li class="loader">
+                <div class="spinner"></div>
+                <a class="gallery-link" href="${el.largeImageURL}">
+                  <img class="gallery-image" src="${el.webformatURL}" width='100px' alt="${el.tags.split(",").slice(0, 3)}">
+                  <ul class="image-params">
+                    <li><b>Likes</b>:<br> ${el.likes}</li>
+                    <li><b>Views</b>:<br> ${el.views}</li>
+                    <li><b>Comments</b>:<br> ${el.comments}</li>
+                    <li><b>Downloads</b>:<br> ${el.downloads}</li>
+                  </ul>
+                </a>
+              </li>`;
+      })
     .join('');
 
-  // Динамічне створення рощзмітки галереї
   gallery.insertAdjacentHTML('afterbegin', markup);
 
-  //Використання методів бібліотеки для створення модельного вікна
-
   const newGallery = new SimpleLightbox('.gallery li a', {
-    captions: true, // Enable captions
-    captionSelector: 'img', // Use the alt attribute of the image for captions
-    captionType: 'attr', // Specify that captions come from an attribute
-    captionsData: 'alt', // The attribute to use for captions
-    nav: true, //Show arrow-navigation
+    captions: true,
+    captionSelector: 'img',
+    captionType: 'attr',
+    captionsData: 'alt',
+    nav: true,
     captionDelay: 250,
   });
   newGallery.refresh();
@@ -132,14 +65,16 @@ function createGallery(images) {
 
 /* #endregion */
 
-function clearGallery() {
-    
+export function clearGallery() {
+  return new Promise((resolve, reject) => {
+    gallery.innerHTML = "";
+  });
 }
-function showLoader() {}
-function hideLoader() {}
 
-
-export function makeRender(username) {
-	return `Welcome, ${username}!`;
+export function showLoader() {
+  spiner.style.display = "block";
 }
-export const render = ["easy", "medium", "hard"];
+
+export function hideLoader() {
+  spiner.style.display = "none";
+}

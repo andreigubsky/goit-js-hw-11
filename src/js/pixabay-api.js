@@ -23,7 +23,7 @@ const options = {
 
 export function getImagesByQuery(query) {
   return fetch(
-    proxyUrl+`${url}/?key=${KEY}&q=${query}&image_type=${imageType}&orientation=${orientation}&safesearch=${safesearch}`,
+    proxyUrl + `${url}/?key=${KEY}&q=${query}&image_type=${imageType}&orientation=${orientation}&safesearch=${safesearch}`,
     options
   )
     .then(response => {
@@ -32,11 +32,6 @@ export function getImagesByQuery(query) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       return response.json();
-    })
-    .then(data => {
-      // Data handling
-      console.log('Отримані дані:', data);
-      return data.value;
     })
     .catch(error => {
       // Error handling
