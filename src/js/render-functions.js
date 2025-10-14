@@ -1,6 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import '../css/animations.css';
+import '/css/animations.css';
 
 const gallery = document.querySelector('ul.gallery');
 
@@ -38,22 +38,19 @@ export function createGallery(data) {
 }
 
 export function clearGallery() {
-  return new Promise((resolve, reject) => {
     gallery.innerHTML = "";
-  });
 }
 
 export function showLoader() {
-  return new Promise((resolve, reject) => {
+
     const spiner = document.querySelector('.spinner');
-    spiner.classList.add('className');
-  });
+    spiner.classList.add('is-open');
 
 }
 
 export function hideLoader() {
-  return new Promise((resolve, reject) => {
+
     const spiner = document.querySelector('.spinner');
-    spiner.classList.remove('className');
-  });
+    spiner.classList.remove('is-open');
+
 }

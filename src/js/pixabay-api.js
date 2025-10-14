@@ -2,6 +2,8 @@
 // Ця функція повинна приймати один параметр query (пошукове слово, яке є рядком),
 // здійснювати HTTP-запит
 // і повертати значення властивості data з отриманої відповіді.
+import axios from 'axios';
+
 
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 proxyUrl = 'https://corsproxy.io/?';
@@ -23,19 +25,19 @@ const options = {
 };
 
 export function getImagesByQuery(query) {
-  return fetch(
-    proxyUrl + `${url}/?key=${KEY}&q=${query}&image_type=${imageType}&orientation=${orientation}&safesearch=${safesearch}`,
-    options
-  )
+  
+  return axios(
+    proxyUrl+`${url}/?key=${KEY}&q=${query}&image_type=${imageType}&orientation=${orientation}&safesearch=${safesearch}`,
+      options
+    )
     .then(response => {
-      // Response handling
-      if (!response.ok) {
+      if (!response.data) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json();
+
+      return response.data;
     })
     .catch(error => {
-      // Error handling
       console.log('Помилка запиту:', error);
     });
 }

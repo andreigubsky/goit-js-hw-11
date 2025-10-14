@@ -7,46 +7,26 @@ import { createGallery, clearGallery, showLoader, hideLoader } from './js/render
 const query = document.querySelector('[name="search-text"]');
 const button = document.querySelector('button');
 
-function showRejected(delay) {
+function showErrorMessage() {
   iziToast.show({
-    message: `❌ Rejected promise in ${delay}ms`,
+    message: `Please enter search image`,
     messageColor: '#ffffff',
     backgroundColor: '#fe5549',
     progressBar: false,
-    timeout: 5000,
-    position: 'topRight',
+    position: 'center',
   });
 }
-
-function showFulfilled(delay) {
-  iziToast.show({
-    message: `✅ Fulfilled promise in ${delay}ms`,
-    messageColor: '#ffffff',
-    backgroundColor: '#31c581',
-    progressBar: false,
-    timeout: 5000,
-    position: 'topRight',
-  });
-}
-
 
 button.addEventListener('click', event => {
   event.preventDefault();
-  // const imagePromises = imageUrls.map(url => loadImage(url));
-  // Promise.all(imagePromises)
-  //   .then((loadedImages) => {
-  //     // All images have loaded successfully
-  //     loadedImages.forEach(img => document.body.appendChild(img));
-  //   })
-  //   .catch((error) => {
-  //     // Handle any errors that occurred
-  //     console.error('An error occurred:', error);
-  //   });
-  // clearGallery()
-  //   .then(showLoader())
-  //   .then(hideLoader())
-  // .then()
+  if(!query.value){
+    showErrorMessage();
+    return;
+  }
+ 
   getImagesByQuery(query.value)
+    // .then(showLoader())
+    // .then(hideLoader())
     .then(result => createGallery(result.hits))
     .catch(error => console.log(error))
 

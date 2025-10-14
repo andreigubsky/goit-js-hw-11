@@ -7,6 +7,7 @@
 }
 
 .spinner {
+  display: none;
   position: absolute;
   border: 16px solid lightgrey;
   border-top: 16px solid grey;
@@ -16,6 +17,10 @@
   top: 50%;
   left: 50%;
   animation: spin 2s linear infinite;
+}
+
+.is-open{
+  display: block;
 }
 
 @keyframes spin {
