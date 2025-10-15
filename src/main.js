@@ -27,12 +27,13 @@ button.addEventListener('click', event => {
     return;
   }
   clearGallery();
-
+  showLoader();
   getImagesByQuery(query.value)
     .then(result => {
       if (!result.hits) {
         showErrorMessage(emptyResponse)
       } else {
+        hideLoader();
         createGallery(result.hits);
       }
     })

@@ -6,7 +6,6 @@ const gallery = document.querySelector('ul.gallery');
 const loader = document.querySelector('.loader');
 
 export function createGallery(data) {
-  showLoader();
   const markup = data
     .map(
       el => {
@@ -23,9 +22,6 @@ export function createGallery(data) {
               </li>`;
       })
     .join('');
-  setTimeout(() => {
-    hideLoader();
-  }, 10000);
   gallery.insertAdjacentHTML('afterbegin', markup);
 
 
