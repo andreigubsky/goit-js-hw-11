@@ -3,14 +3,15 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import '/css/animations.css';
 
 const gallery = document.querySelector('ul.gallery');
+const loader = document.createElement('<div class="loader"></div>')
 
 export function createGallery(data) {
   // console.log(data)
+  showLoader();
   const markup = data
     .map(
       el => {
-        return `<li class="loader">
-                <div class="spinner"></div>
+        return `<li class="gallery-item">
                 <a class="gallery-link" href="${el.largeImageURL}">
                   <img class="gallery-image" src="${el.webformatURL}" width='100px' alt="${el.tags.split(",").slice(0, 3)}">
                   <ul class="image-params">
@@ -41,16 +42,11 @@ export function clearGallery() {
     gallery.innerHTML = "";
 }
 
-export function showLoader() {
-
-    const spiner = document.querySelector('.spinner');
-    spiner.classList.add('is-open');
-
+export function showLoader() {    
+    loader.classList.add('is-open');
 }
 
 export function hideLoader() {
-
-    const spiner = document.querySelector('.spinner');
-    spiner.classList.remove('is-open');
-
+    loader.classList.remove('is-open');
+    gallery.classList.add('is-open');
 }

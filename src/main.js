@@ -7,9 +7,12 @@ import { createGallery, clearGallery, showLoader, hideLoader } from './js/render
 const query = document.querySelector('[name="search-text"]');
 const button = document.querySelector('button');
 
-function showErrorMessage() {
+const emptyResponse = "Sorry, there are no images matching your search query. Please try again!";
+const emptyQuery = "Please enter your search query image";
+
+function showErrorMessage(shownMessage) {
   iziToast.show({
-    message: `Please enter search image`,
+    message: shownMessage,
     messageColor: '#ffffff',
     backgroundColor: '#fe5549',
     progressBar: false,
@@ -17,17 +20,20 @@ function showErrorMessage() {
   });
 }
 
+
 button.addEventListener('click', event => {
   event.preventDefault();
   if(!query.value){
-    showErrorMessage();
+    showErrorMessage(emptyQuery);
     return;
   }
- 
+  showLoader();
+
   getImagesByQuery(query.value)
-    // .then(showLoader())
-    // .then(hideLoader())
-    .then(result => createGallery(result.hits))
+    .then(result => {
+      !result.hits ? showErrorMessage(emptyResponse) : createGallery(result.hits);
+    })
+    .then(hideLoader())
     .catch(error => console.log(error))
 
 })
