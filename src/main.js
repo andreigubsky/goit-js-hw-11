@@ -22,19 +22,21 @@ function showErrorMessage(shownMessage) {
 
 button.addEventListener('click', event => {
   event.preventDefault();
-  if(!query.value){
+  if (!query.value) {
     showErrorMessage(emptyQuery);
     return;
   }
   clearGallery();
-  showLoader();
 
   getImagesByQuery(query.value)
-    
     .then(result => {
-      !result.hits ? showErrorMessage(emptyResponse) : createGallery(result.hits);
+      if (!result.hits) {
+        showErrorMessage(emptyResponse)
+      } else {
+        createGallery(result.hits);
+      }
     })
-    .then(hideLoader())
+
     .catch(error => console.log(error))
 
 })

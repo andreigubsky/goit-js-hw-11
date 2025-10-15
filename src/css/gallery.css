@@ -1,13 +1,16 @@
 .gallery {
-    visibility: hidden;
+    display: none;
     margin: 0 auto;
     max-width: 1440px;
     padding: 24px;
-    display: flex;
     justify-content: center;
     align-items: center;
     gap: 24px;
     flex-wrap: wrap;
+}
+
+.gallery.is-shown {
+    display: flex;
 }
 
 .loader:hover,

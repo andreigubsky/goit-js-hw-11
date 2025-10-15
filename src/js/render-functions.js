@@ -3,13 +3,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import '/css/animations.css';
 
 const gallery = document.querySelector('ul.gallery');
-const main = document.querySelector('main');
-const loader = document.createElement('div');
-loader.classList.add('loader');
-console.log(loader)
+const loader = document.querySelector('.loader');
 
 export function createGallery(data) {
-  // console.log(data)
   showLoader();
   const markup = data
     .map(
@@ -27,8 +23,12 @@ export function createGallery(data) {
               </li>`;
       })
     .join('');
-
+  setTimeout(() => {
+    hideLoader();
+  }, 10000);
   gallery.insertAdjacentHTML('afterbegin', markup);
+
+
 
   const newGallery = new SimpleLightbox('.gallery li a', {
     captions: true,
@@ -42,20 +42,17 @@ export function createGallery(data) {
 }
 
 export function clearGallery() {
-    gallery.innerHTML = "";
+  gallery.innerHTML = "";
 }
 
-export function showLoader() {    
-    loader.classList.add('is-shown');
-    main.append(loader);
-  console.log(gallery)
-  console.log(loader)
+export function showLoader() {
+  gallery.classList.remove('is-shown');
+  loader.classList.add('is-shown');
+  console.log("show");
 }
 
 export function hideLoader() {
-    setTimeout(()=>{
-      loader.classList.remove('is-shown');
-      console.log(1)
-    },2000);
-    //gallery.classList.add('is-shown');
+  loader.classList.remove('is-shown');
+  gallery.classList.add('is-shown');
+  console.log("hide");
 }
