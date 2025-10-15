@@ -20,16 +20,17 @@ function showErrorMessage(shownMessage) {
   });
 }
 
-
 button.addEventListener('click', event => {
   event.preventDefault();
   if(!query.value){
     showErrorMessage(emptyQuery);
     return;
   }
+  clearGallery();
   showLoader();
 
   getImagesByQuery(query.value)
+    
     .then(result => {
       !result.hits ? showErrorMessage(emptyResponse) : createGallery(result.hits);
     })

@@ -3,7 +3,10 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import '/css/animations.css';
 
 const gallery = document.querySelector('ul.gallery');
-const loader = document.createElement('<div class="loader"></div>')
+const main = document.querySelector('main');
+const loader = document.createElement('div');
+loader.classList.add('loader');
+console.log(loader)
 
 export function createGallery(data) {
   // console.log(data)
@@ -43,10 +46,16 @@ export function clearGallery() {
 }
 
 export function showLoader() {    
-    loader.classList.add('is-open');
+    loader.classList.add('is-shown');
+    main.append(loader);
+  console.log(gallery)
+  console.log(loader)
 }
 
 export function hideLoader() {
-    loader.classList.remove('is-open');
-    gallery.classList.add('is-open');
+    setTimeout(()=>{
+      loader.classList.remove('is-shown');
+      console.log(1)
+    },2000);
+    //gallery.classList.add('is-shown');
 }
