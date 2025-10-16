@@ -30,7 +30,8 @@ button.addEventListener('click', event => {
   showLoader();
   getImagesByQuery(query.value)
     .then(result => {
-      if (!result.hits) {
+      console.log(result)
+      if (!result.hits || result.hits.length === 0) {
         showErrorMessage(emptyResponse)
       } else {
         hideLoader();

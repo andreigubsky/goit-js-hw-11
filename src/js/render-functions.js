@@ -44,11 +44,9 @@ export function clearGallery() {
 export function showLoader() {
   gallery.classList.remove('is-shown');
   loader.classList.add('is-shown');
-  console.log("show");
 }
 
 export function hideLoader() {
   loader.classList.remove('is-shown');
   gallery.classList.add('is-shown');
-  console.log("hide");
 }
