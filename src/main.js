@@ -36,6 +36,7 @@ button.addEventListener('click', event => {
       } else {
         hideLoader();
         createGallery(result.hits);
+        query.value = "";
       }
     })
 
