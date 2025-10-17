@@ -4,6 +4,14 @@ import '/css/animations.css';
 
 const gallery = document.querySelector('ul.gallery');
 const loader = document.querySelector('.loader');
+const newGallery = new SimpleLightbox('.gallery li a', {
+  captions: true,
+  captionSelector: 'img',
+  captionType: 'attr',
+  captionsData: 'alt',
+  nav: true,
+  captionDelay: 250,
+});
 
 export function createGallery(data) {
   const markup = data
@@ -11,7 +19,7 @@ export function createGallery(data) {
       el => {
         return `<li class="gallery-item">
                 <a class="gallery-link" href="${el.largeImageURL}">
-                  <img class="gallery-image" src="${el.webformatURL}" width='100px' alt="${el.tags.split(",").slice(0, 3)}">
+                  <img class="gallery-image" src="${el.webformatURL}" width='100px' alt="${el.tags.split(",").slice(0, 3).join(",")}">
                   <ul class="image-params">
                     <li><b>Likes</b>:<br> ${el.likes}</li>
                     <li><b>Views</b>:<br> ${el.views}</li>
@@ -22,18 +30,8 @@ export function createGallery(data) {
               </li>`;
       })
     .join('');
-  gallery.insertAdjacentHTML('afterbegin', markup);
+  gallery.insertAdjacentHTML('beforeend', markup);
 
-
-
-  const newGallery = new SimpleLightbox('.gallery li a', {
-    captions: true,
-    captionSelector: 'img',
-    captionType: 'attr',
-    captionsData: 'alt',
-    nav: true,
-    captionDelay: 250,
-  });
   newGallery.refresh();
 }
 

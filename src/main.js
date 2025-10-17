@@ -22,7 +22,8 @@ function showErrorMessage(shownMessage) {
 
 button.addEventListener('click', event => {
   event.preventDefault();
-  if (!query.value) {
+  if (!query.value || query.value.trim() === "") {
+    query.value = "";
     showErrorMessage(emptyQuery);
     return;
   }
@@ -33,6 +34,7 @@ button.addEventListener('click', event => {
       console.log(result)
       if (!result.hits || result.hits.length === 0) {
         showErrorMessage(emptyResponse)
+        hideLoader();
       } else {
         hideLoader();
         createGallery(result.hits);

@@ -4,9 +4,7 @@
 // і повертати значення властивості data з отриманої відповіді.
 import axios from 'axios';
 
-
-let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-proxyUrl = 'https://corsproxy.io/?';
+const proxyUrl = 'https://corsproxy.io/?url=';
 
 const url = 'https://pixabay.com/api';
 const KEY = '52704159-1137319808f91d343a45c96fe';
@@ -19,22 +17,19 @@ const options = {
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'X-Custom-Header': 'custom value',
-    'mode': 'no-cors',
   },
 };
 
+
 export function getImagesByQuery(query) {
-  
-  return axios(
-    proxyUrl+`${url}/?key=${KEY}&q=${query}&image_type=${imageType}&orientation=${orientation}&safesearch=${safesearch}`,
-      options
-    )
+  const requestURL = `${url}/?key=${KEY}&q=${query}&image_type=${imageType}&orientation=${orientation}&safesearch=${safesearch}`;
+
+
+  return axios(`${proxyUrl}${requestURL}`, options)
     .then(response => {
       if (!response.data) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       return response.data;
     })
     .catch(error => {
