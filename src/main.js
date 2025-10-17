@@ -22,7 +22,7 @@ function showErrorMessage(shownMessage) {
 
 button.addEventListener('click', event => {
   event.preventDefault();
-  if (!query.value || query.value.trim() === "") {
+  if (!query.value.trim()) {
     query.value = "";
     showErrorMessage(emptyQuery);
     return;
